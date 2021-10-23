@@ -15,14 +15,16 @@ public class Configuration {
     public String ignoreMethodMapFilePath;
     public String blockListFilePath;
     public String traceClassOut;
+    public boolean enableSystrace;
     public boolean skipCheckClass;
     public HashSet<String> blockSet = new HashSet<>();
+    public HashSet<String> methodBlockSet = new HashSet<>();
 
     public Configuration() {
     }
 
     Configuration(String packageName, String mappingDir, String baseMethodMapPath, String methodMapFilePath,
-                  String ignoreMethodMapFilePath, String blockListFilePath, String traceClassOut, boolean skipCheckClass) {
+                  String ignoreMethodMapFilePath, String blockListFilePath, String traceClassOut, boolean skipCheckClass, boolean enableSystrace) {
         this.packageName = packageName;
         this.mappingDir = Util.nullAsNil(mappingDir);
         this.baseMethodMapPath = Util.nullAsNil(baseMethodMapPath);
@@ -31,6 +33,7 @@ public class Configuration {
         this.blockListFilePath = Util.nullAsNil(blockListFilePath);
         this.traceClassOut = Util.nullAsNil(traceClassOut);
         this.skipCheckClass = skipCheckClass;
+        this.enableSystrace = enableSystrace;
     }
 
     public int parseBlockFile(MappingCollector processor) {
@@ -57,6 +60,9 @@ public class Configuration {
                 } else if (block.startsWith("-keeppackage ")) {
                     block = block.replace("-keeppackage ", "");
                     blockSet.add(processor.proguardPackageName(block, block));
+                } else if (block.startsWith("-keepmethod ")) {
+                    block = block.replace("-keepmethod ", "");
+                    methodBlockSet.add(processor.proguardPackageName(block, block));
                 }
             }
         }
@@ -85,6 +91,7 @@ public class Configuration {
         public String blockListFile;
         public String traceClassOut;
         public boolean skipCheckClass = false;
+        public boolean enableSystrace = false;
 
         public Builder setPackageName(String packageName) {
             this.packageName = packageName;
@@ -126,8 +133,15 @@ public class Configuration {
             return this;
         }
 
+        public Builder setEnableSystrace(boolean enableSystrace) {
+            this.enableSystrace = enableSystrace;
+            return this;
+        }
+
+
+
         public Configuration build() {
-            return new Configuration(packageName, mappingPath, baseMethodMap, methodMapFile, ignoreMethodMapFile, blockListFile, traceClassOut, skipCheckClass);
+            return new Configuration(packageName, mappingPath, baseMethodMap, methodMapFile, ignoreMethodMapFile, blockListFile, traceClassOut, skipCheckClass, enableSystrace);
         }
 
     }

@@ -238,7 +238,8 @@ class MatrixTraceTransform(
                 baseMethodMapPath = config.baseMethodMapPath,
                 blockListFilePath = config.blockListFilePath,
                 mappingDir = config.mappingDir,
-                project = project
+                project = project,
+                enableSystrace =  config.enableSystrace
         ).doTransform(
                 classInputs = inputFiles,
                 changedFiles = changedFiles,

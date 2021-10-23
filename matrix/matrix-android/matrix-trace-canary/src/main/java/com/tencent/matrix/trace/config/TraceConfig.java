@@ -41,6 +41,7 @@ public class TraceConfig implements IDefaultConfig {
     public boolean defaultStartupEnable;
     public boolean defaultAppMethodBeatEnable = true;
     public boolean defaultAnrEnable;
+    public boolean defaultSystemTraceEnable;
     public boolean defualtIdleHandlerEnable;
     public boolean isDebug;
     public boolean isDevEnv;
@@ -118,6 +119,11 @@ public class TraceConfig implements IDefaultConfig {
     @Override
     public boolean isAnrTraceEnable() {
         return defaultAnrEnable;
+    }
+
+    @Override
+    public boolean isSystemTraceEnable() {
+        return defaultSystemTraceEnable;
     }
 
     @Override

@@ -30,6 +30,8 @@ public interface IDefaultConfig {
 
     boolean isAnrTraceEnable();
 
+    boolean isSystemTraceEnable();
+
     boolean isIdleHandlerEnable();
 
     boolean isSignalAnrTraceEnable();

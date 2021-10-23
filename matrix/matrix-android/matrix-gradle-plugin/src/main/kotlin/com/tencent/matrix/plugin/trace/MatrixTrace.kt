@@ -43,6 +43,7 @@ class MatrixTrace(
         private val baseMethodMapPath: String?,
         private val blockListFilePath: String?,
         private val mappingDir: String,
+        private val enableSystrace: Boolean,
         private val project: Project
 ) {
     companion object {
@@ -79,6 +80,7 @@ class MatrixTrace(
         val config = Configuration.Builder()
                 .setIgnoreMethodMapFilePath(ignoreMethodMapFilePath)
                 .setMethodMapFilePath(methodMapFilePath)
+                .setEnableSystrace(enableSystrace)
                 .setBaseMethodMap(baseMethodMapPath)
                 .setBlockListFile(blockListFilePath)
                 .setMappingPath(mappingDir)

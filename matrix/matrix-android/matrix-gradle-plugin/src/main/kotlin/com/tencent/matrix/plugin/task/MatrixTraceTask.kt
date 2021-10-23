@@ -63,6 +63,10 @@ abstract class MatrixTraceTask : DefaultTask() {
     abstract val mappingDir: Property<String>
 
     @get:Input
+    @get:Optional
+    abstract val enableSystrace: Property<Boolean>
+
+    @get:Input
     abstract val traceClassOutputDirectory: Property<String>
 
     @get:OutputFiles
@@ -111,7 +115,8 @@ abstract class MatrixTraceTask : DefaultTask() {
                     baseMethodMapPath = baseMethodMapFile.asFile.orNull?.absolutePath,
                     blockListFilePath = blockListFile.asFile.orNull?.absolutePath,
                     mappingDir = mappingDir.get(),
-                    project = project
+                    project = project,
+                    enableSystrace = enableSystrace.get()
             ).doTransform(
                     classInputs = classInputs.files,
                     changedFiles = changedFiles,
@@ -176,6 +181,7 @@ abstract class MatrixTraceTask : DefaultTask() {
             if (blackListFile.exists()) {
                 task.blockListFile.set(blackListFile)
             }
+            task.enableSystrace.set(extension.isEnableSystrace)
             task.mappingDir.set(mappingOut)
             task.traceClassOutputDirectory.set(traceClassOut)
             task.skipCheckClass.set(extension.isSkipCheckClass)

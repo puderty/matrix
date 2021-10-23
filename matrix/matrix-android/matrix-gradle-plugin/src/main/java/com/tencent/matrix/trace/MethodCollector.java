@@ -282,7 +282,9 @@ public class MethodCollector {
             if ((access & Opcodes.ACC_ABSTRACT) > 0 || (access & Opcodes.ACC_INTERFACE) > 0) {
                 this.isABSClass = true;
             }
-            collectedClassExtendMap.put(className, superName);
+            if (className != null && superName != null) {
+                collectedClassExtendMap.put(className, superName);
+            }
         }
 
         @Override
@@ -319,10 +321,10 @@ public class MethodCollector {
                 isConstructor = true;
             }
 
-            boolean isNeedTrace = isNeedTrace(configuration, traceMethod.className, mappingCollector);
+            boolean isNeedTrace = isNeedTrace(configuration, traceMethod.className, traceMethod.getMethodNameForSystrace(),
+                    traceMethod.getMethodName(), mappingCollector);
             // filter simple methods
-            if ((isEmptyMethod() || isGetSetMethod() || isSingleMethod())
-                    && isNeedTrace) {
+            if (isNeedTrace && (isEmptyMethod() || isGetSetMethod() || isSingleMethod())) {
                 ignoreCount.incrementAndGet();
                 collectedIgnoreMethodMap.put(traceMethod.getMethodName(), traceMethod);
                 return;
@@ -413,9 +415,12 @@ public class MethodCollector {
         return null != name && null != desc && name.equals(TraceBuildConstants.MATRIX_TRACE_ON_WINDOW_FOCUS_METHOD) && desc.equals(TraceBuildConstants.MATRIX_TRACE_ON_WINDOW_FOCUS_METHOD_ARGS);
     }
 
-    public static boolean isNeedTrace(Configuration configuration, String clsName, MappingCollector mappingCollector) {
+    public static boolean isNeedTrace(Configuration configuration, String clsName, String methodTraceName,
+                                      String methodFullName,MappingCollector mappingCollector) {
         boolean isNeed = true;
         if (configuration.blockSet.contains(clsName)) {
+            isNeed = false;
+        } else if (configuration.methodBlockSet.contains(methodTraceName) || configuration.methodBlockSet.contains(methodFullName)) {
             isNeed = false;
         } else {
             if (null != mappingCollector) {
@@ -431,7 +436,6 @@ public class MethodCollector {
         }
         return isNeed;
     }
-
 
     private void listClassFiles(ArrayList<File> classFiles, File folder) {
         File[] files = folder.listFiles();

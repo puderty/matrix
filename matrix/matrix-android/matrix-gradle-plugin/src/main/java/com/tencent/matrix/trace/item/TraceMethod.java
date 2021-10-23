@@ -49,7 +49,44 @@ public class TraceMethod {
         if (desc == null || isNativeMethod()) {
             return this.className + "." + this.methodName;
         } else {
-            return this.className + "." + this.methodName + "." + desc;
+            return this.className + "." + this.methodName + desc;
+        }
+    }
+
+    public String getMethodNameForSystrace() {
+        if (desc == null || isNativeMethod()) {
+            return this.className + "." + this.methodName;
+        } else {
+            //(IJLjava.lang.String;Ljava.lang.Object;)Ljava.lang.Object;
+            String[] classNames = className.split("\\.");
+//            System.out.println("getMethodNameForSystrace:" + className + "," + desc);
+            String[] descs = desc.split(";");
+            String newDesc = desc;
+            StringBuilder sb = new StringBuilder();
+            if (descs.length > 0) {
+                for (String str : descs) {
+                    int start = str.indexOf('L');
+                    int end = str.lastIndexOf('.') + 1;
+                    if (start >= 0 && end > 0) {
+                        sb.append(str.substring(0, start));
+                        sb.append(str.substring(end));
+                        sb.append(";");
+                    } else {
+                        sb.append(str);
+                    }
+
+                }
+                newDesc = sb.toString();
+            }
+            if (classNames[classNames.length - 1].length() > 3) {
+                newDesc = classNames[classNames.length - 1] + "." + methodName + newDesc;
+            } else {
+                newDesc = this.className + "." + this.methodName + newDesc;
+            }
+            if (newDesc.length() > 127) {
+                newDesc = newDesc.substring(0, 126);
+            }
+            return newDesc;
         }
     }
 

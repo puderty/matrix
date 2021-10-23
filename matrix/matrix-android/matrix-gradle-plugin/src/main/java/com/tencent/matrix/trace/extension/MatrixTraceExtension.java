@@ -9,6 +9,8 @@ public class MatrixTraceExtension {
 
     boolean enable;
 
+    boolean enableSystrace;
+
 //    public void setEnable(boolean enable) {
 //        this.enable = enable;
 //        onTraceEnabled(enable);
@@ -36,5 +38,9 @@ public class MatrixTraceExtension {
 
     public boolean isSkipCheckClass() {
         return skipCheckClass;
+    }
+
+    public boolean isEnableSystrace() {
+        return enableSystrace;
     }
 }
