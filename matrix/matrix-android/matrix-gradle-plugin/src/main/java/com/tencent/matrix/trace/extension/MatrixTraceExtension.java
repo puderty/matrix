@@ -5,8 +5,11 @@ public class MatrixTraceExtension {
     String baseMethodMapFile;
     String blackListFile;
     String customDexTransformName;
+    boolean skipCheckClass = true; // skip by default
 
     boolean enable;
+
+    boolean enableSystrace;
 
 //    public void setEnable(boolean enable) {
 //        this.enable = enable;
@@ -31,5 +34,13 @@ public class MatrixTraceExtension {
 
     public boolean isEnable() {
         return enable;
+    }
+
+    public boolean isSkipCheckClass() {
+        return skipCheckClass;
+    }
+
+    public boolean isEnableSystrace() {
+        return enableSystrace;
     }
 }

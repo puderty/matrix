@@ -63,6 +63,10 @@ abstract class MatrixTraceTask : DefaultTask() {
     abstract val mappingDir: Property<String>
 
     @get:Input
+    @get:Optional
+    abstract val enableSystrace: Property<Boolean>
+
+    @get:Input
     abstract val traceClassOutputDirectory: Property<String>
 
     @get:OutputFiles
@@ -77,6 +81,9 @@ abstract class MatrixTraceTask : DefaultTask() {
     @get:PathSensitive(PathSensitivity.ABSOLUTE)
     @get:Optional
     abstract val methodMapFileOutput: RegularFileProperty
+
+    @get:Optional
+    abstract val skipCheckClass: Property<Boolean>
 
     @TaskAction
     fun execute(inputChanges: InputChanges) {
@@ -107,11 +114,14 @@ abstract class MatrixTraceTask : DefaultTask() {
                     methodMapFilePath = methodMapFileOutput.asFile.get().absolutePath,
                     baseMethodMapPath = baseMethodMapFile.asFile.orNull?.absolutePath,
                     blockListFilePath = blockListFile.asFile.orNull?.absolutePath,
-                    mappingDir = mappingDir.get()
+                    mappingDir = mappingDir.get(),
+                    project = project,
+                    enableSystrace = enableSystrace.get()
             ).doTransform(
                     classInputs = classInputs.files,
                     changedFiles = changedFiles,
                     isIncremental = incremental,
+                    skipCheckClass = this.skipCheckClass.get(),
                     traceClassDirectoryOutput = outputDirectory,
                     inputToOutput = ConcurrentHashMap(),
                     legacyReplaceChangedFile = null,
@@ -171,8 +181,10 @@ abstract class MatrixTraceTask : DefaultTask() {
             if (blackListFile.exists()) {
                 task.blockListFile.set(blackListFile)
             }
+            task.enableSystrace.set(extension.isEnableSystrace)
             task.mappingDir.set(mappingOut)
             task.traceClassOutputDirectory.set(traceClassOut)
+            task.skipCheckClass.set(extension.isSkipCheckClass)
 
             task.classOutputs.from(project.files(Callable<Collection<File>> {
                 val outputDirectory = File(task.traceClassOutputDirectory.get())
