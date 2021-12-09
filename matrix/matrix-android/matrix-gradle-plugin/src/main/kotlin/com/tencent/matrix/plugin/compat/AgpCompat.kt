@@ -41,7 +41,7 @@ class AgpCompat {
         val asmApi: Int
             get() = when {
                 VersionsCompat.greatThanOrEqual(AGPVersion.AGP_7_0_0) -> Opcodes.ASM6
-                else -> Opcodes.ASM5
+                else -> Opcodes.ASM6
             }
     }
 

@@ -244,7 +244,7 @@ public class AppMethodBeat implements BeatLifecycle {
             }
             in++;
             invokeCount.put(methodName, in);
-            if (System.currentTimeMillis() - lastPrint > 200000) {
+            if (System.currentTimeMillis() - lastPrint > 20*1000) {
                 lastPrint = System.currentTimeMillis();
                 List<Map.Entry<String, Integer>> list = new ArrayList(invokeCount.entrySet());
 

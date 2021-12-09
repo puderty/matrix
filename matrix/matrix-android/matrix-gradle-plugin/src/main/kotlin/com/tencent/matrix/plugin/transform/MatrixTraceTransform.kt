@@ -164,7 +164,6 @@ class MatrixTraceTransform(
                 FD_OUTPUTS,
                 "mapping",
                 dirName)
-
         return Configuration.Builder()
                 .setBaseMethodMap(extension.baseMethodMapFile)
                 .setBlockListFile(extension.blackListFile)
@@ -172,6 +171,7 @@ class MatrixTraceTransform(
                 .setIgnoreMethodMapFilePath("$mappingOut/ignoreMethodMapping.txt")
                 .setMappingPath(mappingOut)
                 .setSkipCheckClass(extension.isSkipCheckClass)
+                .setEnableSystrace(extension.isEnableSystrace)
                 .build()
     }
 
