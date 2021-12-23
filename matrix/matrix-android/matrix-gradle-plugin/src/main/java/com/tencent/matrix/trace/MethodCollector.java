@@ -36,6 +36,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import static org.objectweb.asm.ClassReader.EXPAND_FRAMES;
+
 public class MethodCollector {
 
     private static final String TAG = "MethodCollector";
@@ -133,7 +135,7 @@ public class MethodCollector {
                 ClassReader classReader = new ClassReader(is);
                 ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
                 ClassVisitor visitor = new TraceClassAdapter(AgpCompat.getAsmApi(), classWriter);
-                classReader.accept(visitor, 0);
+                classReader.accept(visitor, EXPAND_FRAMES);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -169,7 +171,7 @@ public class MethodCollector {
                         ClassReader classReader = new ClassReader(inputStream);
                         ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
                         ClassVisitor visitor = new TraceClassAdapter(AgpCompat.getAsmApi(), classWriter);
-                        classReader.accept(visitor, 0);
+                        classReader.accept(visitor, EXPAND_FRAMES);
                     }
                 }
             } catch (Exception e) {

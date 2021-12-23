@@ -78,7 +78,7 @@ public class TraceMethod {
                 }
                 newDesc = sb.toString();
             }
-            if (classNames[classNames.length - 1].length() > 3) {
+            if (classNames[classNames.length - 1].length() > 3 && className.startsWith("com.ok")) {
                 newDesc = classNames[classNames.length - 1] + "." + methodName + newDesc;
             } else {
                 newDesc = this.className + "." + this.methodName + newDesc;

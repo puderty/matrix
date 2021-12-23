@@ -232,6 +232,11 @@ public class AppMethodBeat implements BeatLifecycle {
         if (methodId >= METHOD_ID_MAX) {
             return;
         }
+//        long threadId = Thread.currentThread().getId();
+//
+//        if (threadId != sMainThreadId) {
+//            return;
+//        }
         if (methodId != AppMethodBeat.METHOD_ID_DISPATCH) {
             if (methodName.length() > 127) {
                 Trace.beginSection(methodName.substring(0, 126));
@@ -244,7 +249,7 @@ public class AppMethodBeat implements BeatLifecycle {
             }
             in++;
             invokeCount.put(methodName, in);
-            if (System.currentTimeMillis() - lastPrint > 20*1000) {
+            if (System.currentTimeMillis() - lastPrint > 30*1000) {
                 lastPrint = System.currentTimeMillis();
                 List<Map.Entry<String, Integer>> list = new ArrayList(invokeCount.entrySet());
 
@@ -255,16 +260,16 @@ public class AppMethodBeat implements BeatLifecycle {
                     }
                 });
 
-                Log.e("Donald", "***********************************************");
+                Log.e("MethodCount", "***********************************************");
                 int count = 50;
                 for (Map.Entry<String, Integer> e : list) {
                     if (count-- > 0) {
-                        Log.e("Donald", "count:" + e.getKey() + ":" + e.getValue());
+                        Log.e("MethodCount", "count:" + e.getKey() + ":" + e.getValue());
                     } else {
                         break;
                     }
                 }
-                Log.e("Donald", "***********************************************");
+                Log.e("MethodCount", "***********************************************");
                 invokeCount.clear();
             }
         }
@@ -324,6 +329,11 @@ public class AppMethodBeat implements BeatLifecycle {
         if (methodId >= METHOD_ID_MAX) {
             return;
         }
+//        long threadId = Thread.currentThread().getId();
+//
+//        if (threadId != sMainThreadId) {
+//            return;
+//        }
         if (methodId != AppMethodBeat.METHOD_ID_DISPATCH) {
             Trace.endSection();
         }
