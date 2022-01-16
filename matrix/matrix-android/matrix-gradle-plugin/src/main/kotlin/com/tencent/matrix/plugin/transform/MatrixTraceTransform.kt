@@ -171,6 +171,7 @@ class MatrixTraceTransform(
                 .setMethodMapFilePath("$mappingOut/methodMapping.txt")
                 .setIgnoreMethodMapFilePath("$mappingOut/ignoreMethodMapping.txt")
                 .setMappingPath(mappingOut)
+                .setEnableSystrace(extension.isEnableSystrace)
                 .setSkipCheckClass(extension.isSkipCheckClass)
                 .build()
     }

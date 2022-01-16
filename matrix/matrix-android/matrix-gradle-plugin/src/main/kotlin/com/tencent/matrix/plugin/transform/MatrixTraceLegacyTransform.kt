@@ -55,7 +55,6 @@ class MatrixTraceLegacyTransform(
                     FD_OUTPUTS,
                     "traceClassOut",
                     variant.dirName)
-
             val config = Configuration.Builder()
                     .setPackageName(variant.applicationId)
                     .setBaseMethodMap(extension.baseMethodMapFile)
@@ -64,6 +63,7 @@ class MatrixTraceLegacyTransform(
                     .setIgnoreMethodMapFilePath("$mappingOut/ignoreMethodMapping.txt")
                     .setMappingPath(mappingOut)
                     .setTraceClassOut(traceClassOut)
+                    .setEnableSystrace(extension.isEnableSystrace)
                     .setSkipCheckClass(extension.isSkipCheckClass)
                     .build()
 

@@ -22,7 +22,6 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.os.Trace;
-import android.util.Log;
 
 import com.tencent.matrix.AppActiveMatrixDelegate;
 import com.tencent.matrix.trace.constants.Constants;
@@ -32,12 +31,7 @@ import com.tencent.matrix.trace.util.Utils;
 import com.tencent.matrix.util.MatrixHandlerThread;
 import com.tencent.matrix.util.MatrixLog;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -238,35 +232,35 @@ public class AppMethodBeat implements BeatLifecycle {
             } else {
                 Trace.beginSection(methodName);
             }
-            Integer in = invokeCount.get(methodName);
-            if (in == null) {
-                in = 0;
-            }
-            in++;
-            invokeCount.put(methodName, in);
-            if (System.currentTimeMillis() - lastPrint > 20000) {
-                lastPrint = System.currentTimeMillis();
-                List<Map.Entry<String, Integer>> list = new ArrayList(invokeCount.entrySet());
-
-                Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-                    //升序排序
-                    public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                        return -o1.getValue().compareTo(o2.getValue());
-                    }
-                });
-
-                Log.e("Donald", "***********************************************");
-                int count = 50;
-                for (Map.Entry<String, Integer> e : list) {
-                    if (count-- > 0) {
-                        Log.e("Donald", "count:" + e.getKey() + ":" + e.getValue());
-                    } else {
-                        break;
-                    }
-                }
-                Log.e("Donald", "***********************************************");
-                invokeCount.clear();
-            }
+//            Integer in = invokeCount.get(methodName);
+//            if (in == null) {
+//                in = 0;
+//            }
+//            in++;
+//            invokeCount.put(methodName, in);
+//            if (System.currentTimeMillis() - lastPrint > 20000) {
+//                lastPrint = System.currentTimeMillis();
+//                List<Map.Entry<String, Integer>> list = new ArrayList(invokeCount.entrySet());
+//
+//                Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+//                    //升序排序
+//                    public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+//                        return -o1.getValue().compareTo(o2.getValue());
+//                    }
+//                });
+//
+//                Log.e("Donald", "***********************************************");
+//                int count = 50;
+//                for (Map.Entry<String, Integer> e : list) {
+//                    if (count-- > 0) {
+//                        Log.e("Donald", "count:" + e.getKey() + ":" + e.getValue());
+//                    } else {
+//                        break;
+//                    }
+//                }
+//                Log.e("Donald", "***********************************************");
+//                invokeCount.clear();
+//            }
         }
     }
 

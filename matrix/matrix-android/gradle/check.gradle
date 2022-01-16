@@ -1,33 +1,33 @@
 // OSS_ANDROID_TEMPLATE_FILE_HEADER
 
-apply plugin: 'checkstyle'
-
-
-checkstyle {
-    configFile rootProject.file('checkstyle.xml')
-    toolVersion '6.19'
-    ignoreFailures false
-    showViolations true
-}
-
-task('checkstyle', type: Checkstyle) {
-    source 'src/main/java'
-    include '**/*.java'
-    include '**/*.kt'
-    classpath = files()
-}
-
-//if ("External" != rootProject.ext.PUBLISH_CHANNEL) {
-    project.afterEvaluate {
-//        project.publish.dependsOn("checkstyle")
-//        project.publishToMavenLocal.dependsOn("checkstyle")
-        project.build.dependsOn("checkstyle")
-        if (project.plugins.hasPlugin("com.android.application") || project.plugins.hasPlugin("com.android.library")) {
-            project.preBuild.dependsOn("checkstyle")
-        }
-    }
+//apply plugin: 'checkstyle'
+//
+//
+//checkstyle {
+//    configFile rootProject.file('checkstyle.xml')
+//    toolVersion '6.19'
+//    ignoreFailures false
+//    showViolations true
 //}
-check.dependsOn('checkstyle')
+//
+//task('checkstyle', type: Checkstyle) {
+//    source 'src/main/java'
+//    include '**/*.java'
+//    include '**/*.kt'
+//    classpath = files()
+//}
+//
+////if ("External" != rootProject.ext.PUBLISH_CHANNEL) {
+//    project.afterEvaluate {
+////        project.publish.dependsOn("checkstyle")
+////        project.publishToMavenLocal.dependsOn("checkstyle")
+//        project.build.dependsOn("checkstyle")
+//        if (project.plugins.hasPlugin("com.android.application") || project.plugins.hasPlugin("com.android.library")) {
+//            project.preBuild.dependsOn("checkstyle")
+//        }
+//    }
+////}
+//check.dependsOn('checkstyle')
 
 
 //apply plugin: 'pmd'
