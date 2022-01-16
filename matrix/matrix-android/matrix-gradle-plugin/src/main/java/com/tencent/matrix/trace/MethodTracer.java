@@ -321,7 +321,7 @@ public class MethodTracer {
                 hasWindowFocusMethod = MethodCollector.isWindowFocusChangeMethod(name, desc);
             }
 
-            if (isABSClass || name.contains("<init>")) {
+            if (isABSClass) {
                 return super.visitMethod(access, name, desc, signature, exceptions);
             } else {
                 MethodVisitor methodVisitor = cv.visitMethod(access, name, desc, signature, exceptions);
