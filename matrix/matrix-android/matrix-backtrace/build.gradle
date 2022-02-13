@@ -4,6 +4,7 @@ apply from: rootProject.file('gradle/WeChatNativeDepend.gradle')
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
+    ndkVersion '20.1.5948944'
 
     defaultConfig {
         minSdkVersion rootProject.MIN_SDK_VERSION_FOR_HOOK

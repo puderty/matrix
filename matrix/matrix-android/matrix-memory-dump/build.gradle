@@ -8,6 +8,7 @@ apply from: rootProject.file('gradle/WeChatNativeDepend.gradle')
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
+    ndkVersion '20.1.5948944'
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
