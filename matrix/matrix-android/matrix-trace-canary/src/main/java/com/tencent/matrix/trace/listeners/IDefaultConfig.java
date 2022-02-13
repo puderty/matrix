@@ -30,9 +30,10 @@ public interface IDefaultConfig {
 
     boolean isAnrTraceEnable();
 
-    boolean isSystemTraceEnable();
+    boolean isIdleHandlerTraceEnable();
 
-    boolean isIdleHandlerEnable();
+    boolean isTouchEventTraceEnable();
+    boolean isSystemTraceEnable();
 
     boolean isSignalAnrTraceEnable();
 
