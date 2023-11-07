@@ -8,7 +8,7 @@ android {
     ndkVersion '20.1.5948944'
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
+        minSdkVersion MIN_SDK_VERSION_FOR_HOOK
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName rootProject.ext.VERSION_NAME

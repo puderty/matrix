@@ -37,8 +37,6 @@ public interface IDefaultConfig {
 
     boolean isSignalAnrTraceEnable();
 
-    boolean isMainThreadPriorityTraceEnable();
-
     boolean isDebug();
 
     boolean isDevEnv();
